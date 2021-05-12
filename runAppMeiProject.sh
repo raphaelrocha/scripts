@@ -10,6 +10,7 @@
 #yarn devStaging
 #yarn config set network-timeout 300 -g
 
+ROOT_DIR=$(pwd)
 PROJECT_DIR=~/Workspace/azure/rn-neon-mei/
 RN_PORT=8888
 MIN_TIMOUT=300
@@ -21,6 +22,7 @@ OPTIONS=(
   "Rodar o metro bundle"
   "set yarn 300 ms"
   "set yarn 30000 ms"
+  "Limpar porta AV"
   "Teste"
 )
 
@@ -100,6 +102,12 @@ testCommand(){
 #  done
 }
 
+clearAVPort(){
+  echo "Vai limcar a porta do AV"
+  cd "$ROOT_DIR"
+  ./clearPort.sh
+}
+
 echo "Menu RN"
 
 PS3="$PROMPT "
@@ -108,9 +116,10 @@ select opt in "${OPTIONS[@]}" "Sair"; do
     1) clearApk clearApk ; break;;
     2) runApk runApk ; break;;
     3) runStart runStart ; break;;
-    4) setYarnMs 300 ; break;;
-    5) setYarnMs 30000 ; break;;
-    6) testCommand testCommand ; break;;
+    4) setYarnMs "$MIN_TIMOUT" ; break;;
+    5) setYarnMs "$MAX_TIMEOUT" ; break;;
+    6) clearAVPort clearAVPort ; break;;
+    7) testCommand testCommand ; break;;
     $((${#OPTIONS[@]}+1))) echo "Vlw flw!"; break;;
     *) echo "Opcao invalida. Tente outro.";continue;;
     esac
