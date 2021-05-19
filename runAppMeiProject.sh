@@ -23,6 +23,7 @@ OPTIONS=(
   "set yarn 300 ms"
   "set yarn 30000 ms"
   "Limpar porta AV"
+  "Remover app STG"
   "Teste"
 )
 
@@ -108,6 +109,12 @@ clearAVPort(){
   ./clearPort.sh
 }
 
+removeApk(){
+  echo "Vai remover o apk"
+  cd "$PROJECT_DIR"
+  yarn app:removeSTG
+}
+
 echo "Menu RN"
 
 PS3="$PROMPT "
@@ -119,7 +126,8 @@ select opt in "${OPTIONS[@]}" "Sair"; do
     4) setYarnMs "$MIN_TIMOUT" ; break;;
     5) setYarnMs "$MAX_TIMEOUT" ; break;;
     6) clearAVPort clearAVPort ; break;;
-    7) testCommand testCommand ; break;;
+    7) removeApk removeApk ; break;;
+    8) testCommand testCommand ; break;;
     $((${#OPTIONS[@]}+1))) echo "Vlw flw!"; break;;
     *) echo "Opcao invalida. Tente outro.";continue;;
     esac
